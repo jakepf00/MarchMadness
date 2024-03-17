@@ -1,5 +1,6 @@
-from layer import Layer
 import numpy as np
+
+from Layer import Layer
 
 # Inherit from base class Layer
 class FCLayer(Layer):
@@ -17,7 +18,7 @@ class FCLayer(Layer):
     
     # Computes dE/dW, dE/dB for a given output_error = dE/dY. Returns input_error = dE/dX
     def backwardPropagation(self, outputError, learningRate):
-        inputError = np.dot(outputError, self.weight.T)
+        inputError = np.dot(outputError, self.weights.T)
         weightsError = np.dot(self.input.T, outputError)
         # dBias = output_error
 

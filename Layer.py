@@ -9,5 +9,5 @@ class Layer:
         raise NotImplementedError
 
     # Computes dE/dX for a given dE/dY (and update parameters if any)
-    def backwargPropagation(self, outputError, learningRate):
+    def backwardPropagation(self, outputError, learningRate):
         raise NotImplementedError

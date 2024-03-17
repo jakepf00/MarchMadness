@@ -47,7 +47,7 @@ class Network:
                 err += self.loss(yTrain[j], output)
 
                 # Backward propagation
-                error = self.loss_prime(yTrain[j], output)
+                error = self.lossPrime(yTrain[j], output)
                 for layer in reversed(self.layers):
                     error = layer.backwardPropagation(error, learningRate)
             
