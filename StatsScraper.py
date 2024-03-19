@@ -57,8 +57,8 @@ for year in range(statsBeginYear, statsEndYear + 1):
     # Write current year stats to file
     statsFile = open("Stats/" + str(year) + ".csv", "w")
     for team in currentStats:
-        statsFile.write(team.replace(" ", "_") + ",")
+        statsFile.write(team.replace(" ", "_"))
         for stat in currentStats[team]:
-            statsFile.write(str(currentStats[team][stat]) + ",")
+            statsFile.write("," + str(currentStats[team][stat]))
         statsFile.write("\n")
     statsFile.close()
