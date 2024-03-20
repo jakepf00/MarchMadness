@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import pathlib
 import requests
 
-statsToCollect = ["points-per-game", "opponent-points-per-game"]
+statsToCollect = ["offensive-efficiency", "defensive-efficiency"]
 statsBeginYear = 2024
 statsEndYear = 2024
 statDates = {
