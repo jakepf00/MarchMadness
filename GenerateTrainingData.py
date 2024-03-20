@@ -61,6 +61,7 @@ nameConversion = {
     "Colorado": "Colorado",
     "Colorado_St.": "Colorado_St",
     "Columbia": "Columbia",
+    "UConn": "Connecticut",
     "Coppin_St.": "Coppin_St",
     "Cornell": "Cornell",
     "Creighton": "Creighton",
@@ -282,6 +283,7 @@ nameConversion = {
     "Tennessee_Tech": "TN_Tech",
     "UT_Arlington": "TX-Arlington",
     "Tex._A&M-Commerce": "TX_A&M-Com",
+    "TCU": "TX_Christian",
     "UTEP": "TX_El_Paso",
     "Texas_Southern": "TX_Southern",
     "Tarleton_St.": "Tarleton_St",
@@ -374,3 +376,54 @@ for row in gameReader:
             trainingFileY.write("-1\n")
         else:
             trainingFileY.write("1\n")
+
+# March Madness testing data
+pathlib.Path("MarchMadnessData/").mkdir(parents=True, exist_ok=True)
+testFile = open("MarchMadnessData/2024.csv", "w")
+statsToWrite = [
+    # East
+    teamStats["Connecticut"] + teamStats["Stetson"],
+    teamStats["Fla_Atlantic"] + teamStats["Northwestern"],
+    teamStats["San_Diego_St"] + teamStats["UAB"],
+    teamStats["Auburn"] + teamStats["Yale"],
+    teamStats["BYU"] + teamStats["Duquesne"],
+    teamStats["Illinois"] + teamStats["Morehead_St"],
+    teamStats["Wash_State"] + teamStats["Drake"],
+    teamStats["Iowa_St"] + teamStats["S_Dakota_St"],
+
+    # West
+    teamStats["N_Carolina"] + teamStats["Wagner"],
+    teamStats["Miss_State"] + teamStats["Michigan_St"],
+    teamStats["St_Marys"] + teamStats["Grd_Canyon"],
+    teamStats["Alabama"] + teamStats["Col_Charlestn"],
+    teamStats["Clemson"] + teamStats["New_Mexico"],
+    teamStats["Baylor"] + teamStats["Colgate"],
+    teamStats["Dayton"] + teamStats["Nevada"],
+    teamStats["Arizona"] + teamStats["Lg_Beach_St"],
+
+    # South
+    teamStats["Houston"] + teamStats["Longwood"],
+    teamStats["Nebraska"] + teamStats["Texas_A&M"],
+    teamStats["Wisconsin"] + teamStats["James_Mad"],
+    teamStats["Duke"] + teamStats["Vermont"],
+    teamStats["Texas_Tech"] + teamStats["NC_State"],
+    teamStats["Kentucky"] + teamStats["Oakland"],
+    teamStats["Florida"] + teamStats["Colorado"],
+    teamStats["Marquette"] + teamStats["W_Kentucky"],
+
+    # Midwest
+    teamStats["Purdue"] + teamStats["Grambling_St"],
+    teamStats["Utah_St"] + teamStats["TX_Christian"],
+    teamStats["Gonzaga"] + teamStats["McNeese_St"],
+    teamStats["Kansas"] + teamStats["Samford"],
+    teamStats["S_Carolina"] + teamStats["Oregon"],
+    teamStats["Creighton"] + teamStats["Akron"],
+    teamStats["Texas"] + teamStats["Colorado_St"],
+    teamStats["Tennessee"] + teamStats["St_Peters"],
+]
+for row in statsToWrite:
+    for i in range(0, len(row)):
+        testFile.write(row[i])
+        if i != len(row) - 1:
+            testFile.write(",")
+    testFile.write("\n")

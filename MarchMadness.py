@@ -37,9 +37,18 @@ net.add(ActivationLayer(tanh, tanhPrime))
 
 # Train
 net.use(meanSquareError, meanSquareErrorPrime)
-net.fit(xTrain, yTrain, epochs = 100, learningRate = 0.1)
+net.fit(xTrain, yTrain, epochs = 10, learningRate = 0.1)
 
 
 # Tests
-out = net.predict(xTrain[21:23])
-print(out)
+pathlib.Path("MarchMadnessData/").mkdir(parents=True, exist_ok=True)
+MarchMadnessFile = open("MarchMadnessData/2024.csv", "r")
+MarchMadnessList = []
+MarchMadnessCsv = csv.reader(MarchMadnessFile, quoting=csv.QUOTE_NONNUMERIC)
+for row in MarchMadnessCsv:
+    MarchMadnessList.append([row])
+MarchMadness = np.array(MarchMadnessList)
+
+out = net.predict(MarchMadness)
+for prediction in out:
+    print(prediction)
