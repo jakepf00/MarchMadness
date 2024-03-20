@@ -368,4 +368,9 @@ for row in gameReader:
         trainingFileX.write("\n")
 
         # Write point_diff into trainingFileY as correct answer
-        trainingFileY.write(row[2] + "\n")
+        # trainingFileY.write(row[2] + "\n")
+        # TODO: actually use point differential somehow. For now, just doing winner and loser
+        if row[2][0] == "-":
+            trainingFileY.write("-1\n")
+        else:
+            trainingFileY.write("1\n")
