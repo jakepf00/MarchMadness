@@ -356,7 +356,10 @@ teamStats = {}
 
 statsReader = csv.reader(statsFile)
 for row in statsReader:
-    teamStats[row[0]] = [row[1], row[2]]
+    stats = []
+    for i in range(1, len(row)):
+        stats.append(row[i])
+    teamStats[row[0]] = stats
 
 gameReader = csv.reader(gameFile)
 for row in gameReader:
