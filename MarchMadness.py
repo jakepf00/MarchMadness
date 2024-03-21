@@ -37,10 +37,11 @@ net.add(ActivationLayer(tanh, tanhPrime))
 
 # Train
 net.use(meanSquareError, meanSquareErrorPrime)
-net.fit(xTrain, yTrain, epochs = 10, learningRate = 0.1)
+net.fit(xTrain, yTrain, epochs = 100, learningRate = 0.1)
 
 
-# Tests
+# March Madness Predictions
+# Prepping March Madness data
 pathlib.Path("MarchMadnessData/").mkdir(parents=True, exist_ok=True)
 MarchMadnessFile = open("MarchMadnessData/2024.csv", "r")
 MarchMadnessList = []
@@ -49,6 +50,32 @@ for row in MarchMadnessCsv:
     MarchMadnessList.append([row])
 MarchMadness = np.array(MarchMadnessList)
 
-out = net.predict(MarchMadness)
-for prediction in out:
+# Making predictions
+for n in range(1, 6):
+    # Predict this round
+    predictions = net.predict(MarchMadness)
+    print("Round " + str(n) + ":")
+    for prediction in predictions:
+        print(prediction)
+
+    # Prep next round
+    nextRound = []
+    for i in range(0, len(MarchMadness), 2):
+        if predictions[i] > 0:
+            match1 = np.array_split(MarchMadness[i][0], 2)[0]
+        else:
+            match1 = np.array_split(MarchMadness[i][0], 2)[1]
+
+        if predictions[i+1] > 0:
+            match2 = np.array_split(MarchMadness[i+1][0], 2)[0]
+        else:
+            match2 = np.array_split(MarchMadness[i+1][0], 2)[1]
+        
+        nextRound.append([np.concatenate([match1, match2])])
+    MarchMadness = np.array(nextRound)
+
+# Predict final round
+predictions = net.predict(MarchMadness)
+print("Round " + str(n) + ":")
+for prediction in predictions:
     print(prediction)
