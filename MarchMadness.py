@@ -8,6 +8,11 @@ from ActivationLayer import ActivationLayer
 from Activation import tanh, tanhPrime
 from Loss import meanSquareError, meanSquareErrorPrime
 
+# Network parameters
+numEpochs = 100
+learningRate = 0.1
+networkArchitecture = [4, 50, 25, 1] # First number must match number of input parameters, last must be 1 for output
+
 # Training data
 pathlib.Path("TrainingData/").mkdir(parents=True, exist_ok=True)
 trainingFileX = open("TrainingData/2024x.csv", "r")
@@ -27,17 +32,14 @@ yTrain = np.array(yTrainList)
 
 # Network
 net = Network()
-net.add(FCLayer(4, 50))
-net.add(ActivationLayer(tanh, tanhPrime))
-net.add(FCLayer(50, 25))
-net.add(ActivationLayer(tanh, tanhPrime))
-net.add(FCLayer(25, 1))
-net.add(ActivationLayer(tanh, tanhPrime))
+for i in range(1, len(networkArchitecture)):
+    net.add(FCLayer(networkArchitecture[i-1], networkArchitecture[i]))
+    net.add(ActivationLayer(tanh, tanhPrime))
 
 
 # Train
 net.use(meanSquareError, meanSquareErrorPrime)
-net.fit(xTrain, yTrain, epochs = 100, learningRate = 0.1)
+net.fit(xTrain, yTrain, epochs = numEpochs, learningRate = learningRate)
 
 
 # March Madness Predictions
